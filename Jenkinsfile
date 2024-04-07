@@ -45,5 +45,29 @@ pipeline {
                 sh 'mvn -s settings.xml checkstyle:checkstyle'
             }
         }
+
+        stage("Upload Artifacts") {
+            nexusArtifactUploader(
+                            nexusVersion: 'nexus3',
+                            protocol: 'http',
+                            nexusUrl: '${NEXUSIP}:${NEXUSPORT}',
+                            groupId: 'QA',
+                            version: '${enc.BUILD_ID}-${env.BUILD_TIMESTAMP}',
+                            repository: '${RELEASE_REPO}',
+                            credentialsId: '${NEXUS_LOGIN}',
+                            artifacts: [
+                                [artifactId: pom.artifactId,
+                                classifier: '',
+                                file: artifactPath,
+                                type: pom.packaging],
+
+                                // Lets upload the pom.xml file for additional information for Transitive dependencies
+                                [artifactId: 'vproapp',
+                                classifier: '',
+                                file: 'target/vprofile-v2.war',
+                                type: 'war']
+                            ]
+                        );
+        }
     }
 }
