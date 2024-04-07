@@ -45,7 +45,6 @@ pipeline {
                 sh 'mvn -s settings.xml checkstyle:checkstyle'
             }
         }
-
         stage("Upload Artifacts") {
             nexusArtifactUploader(
                             nexusVersion: 'nexus3',
