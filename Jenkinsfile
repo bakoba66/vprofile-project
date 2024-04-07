@@ -1,8 +1,8 @@
 pipeline {
 
-	agent any
+    agent any
 
-	tools {
+    tools {
         maven "Maven"
         jdk "JDK"
     }
@@ -20,7 +20,7 @@ pipeline {
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
     }
-	
+    
     stages{
 
         stage('BUILD') {
