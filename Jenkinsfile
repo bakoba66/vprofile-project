@@ -1,5 +1,5 @@
+/* groovylint-disable-next-line CompileStatic */
 pipeline {
-
     agent any
 
     tools {
@@ -20,9 +20,8 @@ pipeline {
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
     }
-    
-    stages{
 
+    stages{
         stage('BUILD') {
             steps {
                 sh 'mvn -s settings.xml -DskipTests install'
